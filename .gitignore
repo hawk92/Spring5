@@ -3,3 +3,5 @@
 /eurekaclient/target/
 /eurekaserver/target/
 /spring/target/
+*.iml
+.idea/
