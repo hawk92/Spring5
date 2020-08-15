@@ -1,0 +1,5 @@
+# Project exclude paths
+/configserver/target/
+/eurekaclient/target/
+/eurekaserver/target/
+/spring/target/
