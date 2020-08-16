@@ -13,7 +13,7 @@ public class AopMainApp {
         appContext.registerShutdownHook();
         SimpleBean simpleBean = (SimpleBean) appContext.getBean("simpleBean");
         System.out.println("Original message: " + simpleBean.getValue());
-        AopBean aopBean = (AopBean) appContext.getBean("src/main/java/aop");
+        AopBean aopBean = (AopBean) appContext.getBean("aop");
         aopBean.addValue("ABC", "Corp");
         System.out.println("Modified message: " + aopBean.getValue());
         aopBean.getValueWithException();

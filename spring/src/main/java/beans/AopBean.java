@@ -1,14 +1,9 @@
 package beans;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-@Component("src/main/java/aop")
 public class AopBean {
 
     private SimpleBean simpleBean;
 
-    @Autowired
     public AopBean(SimpleBean simpleBean) {
         this.simpleBean = simpleBean;
     }

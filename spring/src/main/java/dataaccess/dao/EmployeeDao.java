@@ -2,10 +2,12 @@ package dataaccess.dao;
 
 import dataaccess.domains.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.jdbc.object.MappingSqlQuery;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Component
+@Repository
 public class EmployeeDao {
 
     @Autowired
@@ -24,6 +26,9 @@ public class EmployeeDao {
 
     @Autowired
     private RowMapper<Employee> rowMapper;
+
+    @Autowired
+    private MappingSqlQuery<Employee> rowMapperAlt;
 
     private final static String EMPLOYEE_NAME_PARAMETER = "ename";
 
@@ -52,6 +57,13 @@ public class EmployeeDao {
         Map<String, String> paramMap = new HashMap<>();
         paramMap.put(EMPLOYEE_NAME_PARAMETER, name.trim().toLowerCase());
         return (Employee) namedParameterJdbcTemplate.queryForObject(sql, paramMap, rowMapper);
+    }
+
+
+    public Employee getEmployeeByNameAlt(String name) {
+        Map<String, String> paramMap = new HashMap<>();
+        paramMap.put(EMPLOYEE_NAME_PARAMETER, name.trim().toLowerCase());
+        return rowMapperAlt.findObjectByNamedParam(paramMap);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)

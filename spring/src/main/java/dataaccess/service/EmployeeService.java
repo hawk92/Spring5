@@ -4,7 +4,6 @@ import dataaccess.dao.EmployeeDao;
 import dataaccess.domains.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service("employeeService")
@@ -13,7 +12,7 @@ public class EmployeeService {
     @Autowired
     private EmployeeDao employeeDao;
 
-    @Transactional(propagation = Propagation.MANDATORY)
+    @Transactional
     public int addEmployee(Employee e) {
         return employeeDao.insertEmployee(e);
     }
@@ -42,5 +41,9 @@ public class EmployeeService {
 
     public Employee getEmployeeByName(String name) {
         return employeeDao.getEmployeeByName(name);
+    }
+
+    public Employee getEmployeeByNameAlt(String name) {
+        return employeeDao.getEmployeeByNameAlt(name);
     }
 }
