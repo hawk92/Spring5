@@ -23,6 +23,10 @@ public class AnnotationBean implements InitializingBean, BeanNameAware, Applicat
         return name;
     }
 
+    public AnnotationBean(){
+        System.out.println("Annotation");
+    }
+
     @Autowired
     public void setName(@Value("Stunner") String name) {
         this.name = name;

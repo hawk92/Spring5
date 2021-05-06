@@ -8,20 +8,28 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!--<context:annotation-config/>-->
-    <context:component-scan base-package="beans">
+    <context:component-scan base-package="beans,postprocessor">
         <context:exclude-filter type="assignable" expression="beans.AopBean"/>
         <context:exclude-filter type="assignable" expression="beans.SimpleBean"/>
+        <context:exclude-filter type="assignable" expression="beans.AnnotationBean"/>
     </context:component-scan>
 
     <!-- bean definitions here -->
-    <bean id="xmlBean" class="beans.XmlBean" init-method="init">
+    <bean id="xmlBean" class="beans.XmlBean" init-method="init" abstract="true" >
         <property name="name" value="Hello"/>
-        <property name="dependencyBean" ref="dependency"/>
     </bean>
-    <alias name="xmlBean" alias="xb"/>
 
-    <bean id="dependency" class="beans.XmlDependencyBean">
+    <bean id="childXmlBean" class="beans.XmlBean" parent="xmlBean" init-method="init" scope="singleton">
+        <property name="name" value="Mr Wonderful"/>
+    </bean>
+    <alias name="childXmlBean" alias="xb"/>
+
+   <bean id="dependency" class="beans.XmlDependencyBean" lazy-init="true">
         <property name="value" value="100"/>
+    </bean>
+
+    <bean id="dependency1" class="beans.XmlDependencyBean">
+        <property name="value" value="200"/>
     </bean>
 
 </beans>
